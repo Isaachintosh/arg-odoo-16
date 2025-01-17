@@ -11,7 +11,8 @@
         "security/ir.model.access.csv",
         "views/gov_tax_rate_views.xml",
         "views/gov_tax_rate_line_views.xml",
-        "views/gov_tax_guide_views.xml"
+        "views/gov_tax_guide_views.xml",
+        "views/res_partner_property_views.xml"
     ],
     'application': True,
     'installable': True,

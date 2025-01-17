@@ -10,8 +10,11 @@ _logger = logging.getLogger(__name__)
 class GovTaxRate(models.Model):
     _name = 'gov.tax.rate'
     _description = 'Tasa de impuesto del gobierno'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    name = fields.Char('Nombre')
+    name = fields.Char(
+        string='Nombre'
+    )
     
     antecipated_payment_tax_discount = fields.Float(
         string="Descuento fiscal por pago anticipado",

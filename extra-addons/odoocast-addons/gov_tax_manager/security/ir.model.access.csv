@@ -2,3 +2,4 @@ id,name,model_id/id,group_id/id,perm_read,perm_write,perm_create,perm_unlink
 access_gov_tax_rate_manager,gov_tax_rate_manager,model_gov_tax_rate,,1,1,1,1
 access_gov_tax_rate_line_manager,gov_tax_rate_line_manager,model_gov_tax_rate_line,,1,1,1,1
 access_gov_tax_guide_manager,gov_tax_guide_manager,model_gov_tax_guide,,1,1,1,1
+access_res_partner_property_manager,res_partner_property_manager,model_res_partner_property,,1,1,1,1

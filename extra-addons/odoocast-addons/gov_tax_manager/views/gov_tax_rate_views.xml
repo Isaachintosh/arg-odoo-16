@@ -97,7 +97,7 @@
         id="gov_tax_manager_settings"
         name="Ajustes"
         parent="gov_tax_manager_main_menu"
-        sequence="10"/>
+        sequence="90"/>
     
     <menuitem
         id="gov_tax_rate"
