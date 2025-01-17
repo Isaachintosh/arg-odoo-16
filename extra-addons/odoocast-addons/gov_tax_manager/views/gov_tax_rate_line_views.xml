@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View gov.tax.rate.line View Tree -->
+    <record id="view_gov_tax_rate_line_tree" model="ir.ui.view">
+        <field name="name">view.gov.tax.rate.line.tree</field>
+        <field name="model">gov.tax.rate.line</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" optional="hide"/>
+                <field name="min_value" />
+                <field name="max_value" />
+                <field name="tax_rate" />
+                <field name="gov_tax_rate_id" optional="hide"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- View gov.tax.rate.line form -->
+    <record id="view_gov_tax_rate_line_form" model="ir.ui.view">
+        <field name="name">view.gov.tax.rate.line.form</field>
+        <field name="model">gov.tax.rate.line</field>
+        <field name="arch" type="xml">
+            <form string="Gov Tax Rate Line">
+                <sheet>
+                    <field name="name" placeholder="Name..."/>
+                    <group>
+                        <group>
+                            <field name="min_value" />
+                            <field name="max_value" />
+                        </group>
+                        <group>
+                            <field name="tax_rate" />
+                            <field name="gov_tax_rate_id" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- View gov.tax.rate.line search -->
+    <record id="view_gov_tax_rate_line_search" model="ir.ui.view">
+        <field name="name">view.gov.tax.rate.line.search</field>
+        <field name="model">gov.tax.rate.line</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="1" string="Group By">
+                    <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action gov.tax.rate.line -->
+    <record id="action_gov_tax_rate_line" model="ir.actions.act_window">
+        <field name="name">Gov Tax Rate Line</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gov.tax.rate.line</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Gov Tax Rate Line.
+            </p>
+        </field>
+    </record>
+
+</odoo>

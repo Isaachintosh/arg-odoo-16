@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View gov.tax.rate View Tree -->
+    <record id="view_gov_tax_rate_tree" model="ir.ui.view">
+        <field name="name">view.gov.tax.rate.tree</field>
+        <field name="model">gov.tax.rate</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name" string="Nombre"/>
+                <field name="location_type" string="Tipo de ubicación"/>
+                <field name="building_type" string="Tipo de edificio"/>
+                <field name="antecipated_payment_tax_discount" string="Descuento fiscal por pago anticipado" optional="hide"/>
+                <field name="inarrengement_payment_tax_discount" string="Descuento de impuestos por pago irregular" optional="hide"/>
+                <field name="account_move_ids" string="Facturas" optional="hide"/>
+                <field name="status" string="Situación"/>
+            </tree>
+        </field>
+    </record>
+
+    <!-- View gov.tax.rate form -->
+    <record id="view_gov_tax_rate_form" model="ir.ui.view">
+        <field name="name">view.gov.tax.rate.form</field>
+        <field name="model">gov.tax.rate</field>
+        <field name="arch" type="xml">
+            <form string="Tasa de impuesto del gobierno">
+                <header>
+                    <field name="active" invisible="1"/>
+                    <button string="Activar" name="action_activate" type="object" class="oe_highlight" attrs="{'invisible': [('active', '=', True)]}"/>
+                    <button string="Arquivar" name="action_archive" type="object" class="oe_highlight" attrs="{'invisible': [('active', '=', False)]}"/>
+                    <button string="Aprovar" name="action_approve" type="object" class="oe_highlight" attrs="{'invisible': [('status', '=', 'approve')]}"/>
+                    <button string="Desativar" name="action_inactive" type="object" class="oe_highlight" attrs="{'invisible': [('status', '=', 'inactive')]}"/>
+                    <button string="Cancelar" name="action_cancel" type="object" class="oe_highlight" attrs="{'invisible': [('status', '=', 'canceled')]}"/>
+                    <button string="Retornar à Rascunho" name="action_draft" type="object" class="oe_highlight" attrs="{'invisible': [('status', '=', 'draft')]}"/>
+                    <field name="status" widget="statusbar"/>
+                </header>
+                <sheet>
+                    <field name="name" placeholder="Name..."/>
+                    <group>
+                        <group>
+                            <field name="location_type" />
+                            <field name="building_type" />
+                        </group>
+                        <group>
+                            <field name="antecipated_payment_tax_discount" />
+                            <field name="inarrengement_payment_tax_discount" />
+                        </group>
+                    </group>
+                    <notebook>
+                        <page name="tax_lines" string="Linhas">
+                            <field name="tax_line_ids" />
+                        </page>
+                        <page name="name" string="Faturas">
+                            <field name="account_move_ids" readonly="1"/>
+                        </page>
+                    </notebook>
+
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- View gov.tax.rate search -->
+    <record id="view_gov_tax_rate_search" model="ir.ui.view">
+        <field name="name">view.gov.tax.rate.search</field>
+        <field name="model">gov.tax.rate</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="1" string="Group By">
+                    <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action gov.tax.rate -->
+    <record id="action_gov_tax_rate" model="ir.actions.act_window">
+        <field name="name">Tasa de impuesto del gobierno</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">gov.tax.rate</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Gov Tax Rate.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="gov_tax_manager_main_menu"
+        name="Gerente de impuestos del gobierno"
+        sequence="01"/>
+    
+    <menuitem
+        id="gov_tax_manager_settings"
+        name="Ajustes"
+        parent="gov_tax_manager_main_menu"
+        sequence="10"/>
+    
+    <menuitem
+        id="gov_tax_rate"
+        name="Tasa(s) de impuesto"
+        action="action_gov_tax_rate"
+        parent="gov_tax_manager_settings"
+        sequence="10"/>
+
+</odoo>
