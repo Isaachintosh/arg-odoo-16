@@ -17,15 +17,18 @@ class GovTaxRateLine(models.Model):
     )
     
     min_value = fields.Float(
-        string='Valor Mínimo'
+        string='Valor Mínimo',
+        digits=(16, 2)
     )
     
     max_value = fields.Float(
-        string='Valor Máximo'
+        string='Valor Máximo',
+        digits=(16, 2)
     )
     
     tax_rate = fields.Float(
-        string='Tasa de Impuesto'
+        string='Tasa de Impuesto',
+        digits=(16, 4)
     )
     
     gov_tax_rate_id = fields.Many2one(

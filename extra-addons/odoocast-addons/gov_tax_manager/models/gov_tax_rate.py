@@ -18,13 +18,13 @@ class GovTaxRate(models.Model):
     
     antecipated_payment_tax_discount = fields.Float(
         string="Descuento fiscal por pago anticipado",
-        digits=(16, 2),
+        digits=(16, 4),
         default=0
     )
     
     inarrengement_payment_tax_discount = fields.Float(
         string="Descuento de impuestos por pago irregular",
-        digits=(16, 2),
+        digits=(16, 4),
         default=0
     )
     
@@ -75,6 +75,14 @@ class GovTaxRate(models.Model):
     active = fields.Boolean(
         string='Activo',
         default=True
+    )
+    
+    activation_date = fields.Date(
+        string='Fecha de activación'
+    )
+    
+    revogation_date = fields.Date(
+        string='Fecha de revocación'
     )
     
     def action_approve(self):

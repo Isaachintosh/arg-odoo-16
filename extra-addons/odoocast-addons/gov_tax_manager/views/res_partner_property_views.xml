@@ -8,6 +8,10 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
+                <field name="owner_id" />
+                <field name="fiscal_building_value" />
+                <field name="building_type" />
+                <field name="location_type" />
             </tree>
         </field>
     </record>
@@ -19,12 +23,18 @@
         <field name="arch" type="xml">
             <form string="Res Partner Property">
                 <sheet>
-                    <div class="oe_title">
-                        <label for="name"/>
-                        <h1>
-                            <field name="name" placeholder="Name..."/>
-                        </h1>
-                    </div>
+                    <field name="name" placeholder="Name..."/>
+                    <group>
+                    <field name="currency_id" invisible="1"/>
+                        <group>
+                            <field name="owner_id" />
+                            <field name="fiscal_building_value" widget="monetary"/>
+                        </group>
+                        <group>
+                            <field name="building_type" />
+                            <field name="location_type" />
+                        </group>
+                    </group>
                 </sheet>
             </form>
         </field>

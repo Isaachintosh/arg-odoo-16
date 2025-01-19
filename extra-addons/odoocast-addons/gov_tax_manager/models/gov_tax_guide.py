@@ -57,3 +57,17 @@ class GovTaxGuide(models.Model):
         ('paid', 'Pago'),
         ('cancelled', 'Cancelado')
     ], string="Situación", default='draft')
+    
+    @api.depends('property_id', 'tax_rate_id')
+    @api.onchange('property_id', 'tax_rate_id')
+    def compute_tax_amount(self):
+        for record in self:
+            tax_amount = 0
+            if record.tax_rate_id:
+                tax_line_id = record.tax_rate_id.tax_line_ids.search([
+                    ('min_value', '<=', record.property_id.fiscal_building_value),
+                    ('max_value', '>=', record.property_id.fiscal_building_value)
+                ], limit=1)
+                if tax_line_id:
+                    tax_amount = round(record.property_id.fiscal_building_value * tax_line_id.tax_rate, 2)
+            record.tax_amount = tax_amount
