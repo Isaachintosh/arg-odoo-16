@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <!-- View res.partner.property View Tree -->
+    <record id="view_res_partner_property_tree" model="ir.ui.view">
+        <field name="name">view.res.partner.property.tree</field>
+        <field name="model">res.partner.property</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="name"/>
+                <field name="owner_id" />
+                <field name="fiscal_building_value" />
+                <field name="building_type" />
+                <field name="location_type" />
+            </tree>
+        </field>
+    </record>
+
+    <!-- View res.partner.property form -->
+    <record id="view_res_partner_property_form" model="ir.ui.view">
+        <field name="name">view.res.partner.property.form</field>
+        <field name="model">res.partner.property</field>
+        <field name="arch" type="xml">
+            <form string="Res Partner Property">
+                <sheet>
+                    <group>
+                        <field name="name" placeholder="Name..."/>
+                    </group>
+                    <group>
+                    <field name="currency_id" invisible="1"/>
+                        <group name="onwership" string="Titularidad">
+                            <field name="owner_id" />
+                            <field name="fiscal_building_value" widget="monetary"/>
+                        </group>
+                        <group name="classification" string="Classificación">
+                            <field name="building_type" />
+                            <field name="location_type" />
+                        </group>
+                    </group>
+                    <group name="address" string="Dirección">
+                        <group>
+                            <field name="street" />
+                            <field name="number" />
+                            <field name="neighborhood" />
+                            <field name="city" />
+                        </group>
+                        <group>
+                            <field name="state" />
+                            <field name="country" />
+                            <field name="zip" />
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- View res.partner.property search -->
+    <record id="view_res_partner_property_search" model="ir.ui.view">
+        <field name="name">view.res.partner.property.search</field>
+        <field name="model">res.partner.property</field>
+        <field name="arch" type="xml">
+            <search>
+                <group expand="1" string="Group By">
+                    <filter string="Name" name="name" domain="[]" context="{'group_by':'name'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <!-- Action res.partner.property -->
+    <record id="action_res_partner_property" model="ir.actions.act_window">
+        <field name="name">Res Partner Property</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.partner.property</field>
+        <field name="view_mode">tree,form</field>
+        <field name="domain">[]</field>
+        <field name="context">{}</field>
+        <field name="help" type="html">
+            <p class="oe_view_nocontent_create">
+                There is no examples click here to add new Res Partner Property.
+            </p>
+        </field>
+    </record>
+
+    <menuitem
+        id="gov_tax_manager_data"
+        name="Dados"
+        parent="gov_tax_manager_main_menu"
+        sequence="20"/>
+    
+    <menuitem
+        id="gov_tax_rate_property"
+        name="Imóveis"
+        action="action_res_partner_property"
+        parent="gov_tax_manager_data"
+        sequence="10"/>
+
+</odoo>

@@ -10,18 +10,21 @@ _logger = logging.getLogger(__name__)
 class GovTaxRate(models.Model):
     _name = 'gov.tax.rate'
     _description = 'Tasa de impuesto del gobierno'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
 
-    name = fields.Char('Nombre')
+    name = fields.Char(
+        string='Nombre'
+    )
     
     antecipated_payment_tax_discount = fields.Float(
         string="Descuento fiscal por pago anticipado",
-        digits=(16, 2),
+        digits=(16, 4),
         default=0
     )
     
     inarrengement_payment_tax_discount = fields.Float(
         string="Descuento de impuestos por pago irregular",
-        digits=(16, 2),
+        digits=(16, 4),
         default=0
     )
     
@@ -72,6 +75,14 @@ class GovTaxRate(models.Model):
     active = fields.Boolean(
         string='Activo',
         default=True
+    )
+    
+    activation_date = fields.Date(
+        string='Fecha de activación'
+    )
+    
+    revogation_date = fields.Date(
+        string='Fecha de revocación'
     )
     
     def action_approve(self):

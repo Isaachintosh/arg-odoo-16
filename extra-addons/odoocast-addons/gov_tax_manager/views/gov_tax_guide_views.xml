@@ -8,6 +8,14 @@
         <field name="arch" type="xml">
             <tree>
                 <field name="name"/>
+                <field name="owner_id" />
+                <field name="property_id" />
+                <field name="tax_rate_id" />
+                <field name="tax_amount" />
+                <field name="invoice_date" />
+                <field name="payment_date" />
+                <field name="status" />
+                <field name="account_move_id" />
             </tree>
         </field>
     </record>
@@ -18,13 +26,34 @@
         <field name="model">gov.tax.guide</field>
         <field name="arch" type="xml">
             <form string="Gov Tax Guide">
+                <header>
+                    <field name="status" widget="statusbar"/>
+                    <button string="Validar" name="action_validate" type="object" class="oe_highlight"
+                        attrs="{'invisible': [('status', '!=', 'draft')]}"/>
+                    <button string="Facturar" name="action_generate_invoice" type="object" class="oe_highlight"
+                        attrs="{'invisible': [('status', 'in', ['draft','generated', 'paid'])]}"/>
+                    <button string="Cancelar" name="action_validate" type="object"
+                        attrs="{'invisible': [('status', 'in', ['draft','canceled'])]}"/>
+                </header>
                 <sheet>
-                    <div class="oe_title">
-                        <label for="name"/>
-                        <h1>
-                            <field name="name" placeholder="Name..."/>
-                        </h1>
-                    </div>
+                    <field name="name" placeholder="Name..."/>
+                    <group>
+                        <group>
+                            <field name="owner_id" />
+                            <field name="property_id" />
+                        </group>
+                        <group>
+                            <field name="tax_rate_id" />
+                            <field name="tax_amount" />
+                        </group>
+                        <group>
+                            <field name="invoice_date" />
+                            <field name="payment_date" />
+                        </group>
+                        <group>
+                            <field name="account_move_id" />
+                        </group>
+                    </group>
                 </sheet>
             </form>
         </field>
@@ -57,5 +86,18 @@
             </p>
         </field>
     </record>
+
+    <menuitem
+        id="gov_tax_manager_invoicing"
+        name="Facturación"
+        parent="gov_tax_manager_main_menu"
+        sequence="10"/>
+    
+    <menuitem
+        id="gov_tax_rate_guide"
+        name="Guía de pago de impuestos"
+        action="action_gov_tax_guide"
+        parent="gov_tax_manager_invoicing"
+        sequence="10"/>
 
 </odoo>

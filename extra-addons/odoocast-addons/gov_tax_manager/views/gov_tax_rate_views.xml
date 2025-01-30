@@ -12,6 +12,8 @@
                 <field name="building_type" string="Tipo de edificio"/>
                 <field name="antecipated_payment_tax_discount" string="Descuento fiscal por pago anticipado" optional="hide"/>
                 <field name="inarrengement_payment_tax_discount" string="Descuento de impuestos por pago irregular" optional="hide"/>
+                <field name="activation_date" optional="show"/>
+                <field name="revogation_date" optional="show"/>
                 <field name="account_move_ids" string="Facturas" optional="hide"/>
                 <field name="status" string="Situación"/>
             </tree>
@@ -37,12 +39,20 @@
                 <sheet>
                     <field name="name" placeholder="Name..."/>
                     <group>
-                        <group>
+                        <group name="param_types" string="Tipologia">
                             <field name="location_type" />
                             <field name="building_type" />
                         </group>
+                        <group name="tax_date_group" string="Fechos">
+                            <field name="activation_date" />
+                            <field name="revogation_date" />
+                        </group>
+                    </group>
+                    <group name="tax_discounts" string="Descuentos">
                         <group>
                             <field name="antecipated_payment_tax_discount" />
+                        </group>
+                        <group>
                             <field name="inarrengement_payment_tax_discount" />
                         </group>
                     </group>
@@ -97,7 +107,7 @@
         id="gov_tax_manager_settings"
         name="Ajustes"
         parent="gov_tax_manager_main_menu"
-        sequence="10"/>
+        sequence="90"/>
     
     <menuitem
         id="gov_tax_rate"
