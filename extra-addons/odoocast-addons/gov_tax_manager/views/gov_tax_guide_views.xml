@@ -15,6 +15,7 @@
                 <field name="invoice_date" />
                 <field name="payment_date" />
                 <field name="status" />
+                <field name="account_move_id" />
             </tree>
         </field>
     </record>
@@ -27,6 +28,12 @@
             <form string="Gov Tax Guide">
                 <header>
                     <field name="status" widget="statusbar"/>
+                    <button string="Validar" name="action_validate" type="object" class="oe_highlight"
+                        attrs="{'invisible': [('status', '!=', 'draft')]}"/>
+                    <button string="Facturar" name="action_generate_invoice" type="object" class="oe_highlight"
+                        attrs="{'invisible': [('status', 'in', ['draft','generated', 'paid'])]}"/>
+                    <button string="Cancelar" name="action_validate" type="object"
+                        attrs="{'invisible': [('status', 'in', ['draft','canceled'])]}"/>
                 </header>
                 <sheet>
                     <field name="name" placeholder="Name..."/>
@@ -42,6 +49,9 @@
                         <group>
                             <field name="invoice_date" />
                             <field name="payment_date" />
+                        </group>
+                        <group>
+                            <field name="account_move_id" />
                         </group>
                     </group>
                 </sheet>

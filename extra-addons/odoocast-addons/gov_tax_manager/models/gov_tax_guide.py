@@ -51,8 +51,14 @@ class GovTaxGuide(models.Model):
     invoice_date = fields.Date(string="Data de Emissão")
     payment_date = fields.Date(string="Data de Vencimento")
     
+    account_move_id = fields.Many2one(
+        comodel_name='account.move',
+        string="Fatura"
+    )
+    
     status = fields.Selection([
         ('draft', 'Borrador'),
+        ('validate', 'Validado'),
         ('generated', 'Gerado'),
         ('paid', 'Pago'),
         ('cancelled', 'Cancelado')
@@ -71,3 +77,39 @@ class GovTaxGuide(models.Model):
                 if tax_line_id:
                     tax_amount = round(record.property_id.fiscal_building_value * tax_line_id.tax_rate, 2)
             record.tax_amount = tax_amount
+
+    def action_validate(self):
+        for record in self:
+            if record.status == 'draft':
+                record.status = 'validate'
+
+    def action_cancel(self):
+        for record in self:
+            if record.status == 'cancelled':
+                raise UserError(_('Guia de pagamento já cancelada.'))
+            if record.status == 'generated':
+                raise UserError(_('Guia de pagamento já gerada. Cancele a Factura antes.'))
+            record.status = 'cancelled'
+
+    def action_generate_invoice(self):
+        for record in self:
+            if record.status == 'generated':
+                raise UserError(_('Factura já gerada.'))
+            if record.status != 'validate':
+                raise UserError(_('Guia de pagamento não validada. Favor revisionar.'))
+            record.status = 'generated'
+            record.invoice_date = fields.Date.today()
+            account_move_id = self.env['account.move'].create({
+                'move_type': 'out_invoice',
+                'partner_id': record.owner_id.id,
+                'invoice_date': fields.Date.today(),
+                'invoice_line_ids': [
+                    (0, 0, {
+                        'name': record.tax_rate_id.name,
+                        'quantity': 1,
+                        'price_unit': record.tax_amount,
+                    })
+                ]
+            })
+            if account_move_id:
+                record.account_move_id = account_move_id

@@ -49,3 +49,33 @@ class ResPartnerProperty(models.Model):
         string='Tipo de ubicación',
         default='urban'
     )
+    
+    # dirección
+    street = fields.Char(
+        string='Camino'
+    )
+    
+    number = fields.Char(
+        string='Número'
+    )
+    
+    neighborhood = fields.Char(
+        string='Vecindario'
+    )
+    
+    city = fields.Char(
+        string='Ciudad'
+    )
+    
+    state = fields.Char(
+        string='Estado'
+    )
+    
+    country = fields.Many2one(
+        comodel_name='res.country',
+        string='País'
+    )
+    
+    zip = fields.Char(
+        string='Código Postal'
+    )

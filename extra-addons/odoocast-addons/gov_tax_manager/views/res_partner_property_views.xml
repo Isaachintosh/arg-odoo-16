@@ -23,16 +23,31 @@
         <field name="arch" type="xml">
             <form string="Res Partner Property">
                 <sheet>
-                    <field name="name" placeholder="Name..."/>
+                    <group>
+                        <field name="name" placeholder="Name..."/>
+                    </group>
                     <group>
                     <field name="currency_id" invisible="1"/>
-                        <group>
+                        <group name="onwership" string="Titularidad">
                             <field name="owner_id" />
                             <field name="fiscal_building_value" widget="monetary"/>
                         </group>
-                        <group>
+                        <group name="classification" string="Classificación">
                             <field name="building_type" />
                             <field name="location_type" />
+                        </group>
+                    </group>
+                    <group name="address" string="Dirección">
+                        <group>
+                            <field name="street" />
+                            <field name="number" />
+                            <field name="neighborhood" />
+                            <field name="city" />
+                        </group>
+                        <group>
+                            <field name="state" />
+                            <field name="country" />
+                            <field name="zip" />
                         </group>
                     </group>
                 </sheet>
