@@ -28,12 +28,11 @@
             <form string="Tasa de impuesto del gobierno">
                 <header>
                     <field name="active" invisible="1"/>
-                    <button string="Activar" name="action_activate" type="object" class="oe_highlight" attrs="{'invisible': [('active', '=', True)]}"/>
-                    <button string="Arquivar" name="action_archive" type="object" class="oe_highlight" attrs="{'invisible': [('active', '=', False)]}"/>
-                    <button string="Aprovar" name="action_approve" type="object" class="oe_highlight" attrs="{'invisible': [('status', '=', 'approve')]}"/>
-                    <button string="Desativar" name="action_inactive" type="object" class="oe_highlight" attrs="{'invisible': [('status', '=', 'inactive')]}"/>
-                    <button string="Cancelar" name="action_cancel" type="object" class="oe_highlight" attrs="{'invisible': [('status', '=', 'canceled')]}"/>
                     <button string="Retornar à Rascunho" name="action_draft" type="object" class="oe_highlight" attrs="{'invisible': [('status', '=', 'draft')]}"/>
+                    <button string="Activar" name="action_activate" type="object" class="oe_highlight" attrs="{'invisible': [('status', '=', 'active')]}"/>
+                    <button string="Desativar" name="action_inactive" type="object" class="oe_highlight" attrs="{'invisible': [('status', '=', 'inactive')]}"/>
+                    <button string="Cancelar" name="action_cancel" type="object" attrs="{'invisible': [('status', '=', 'canceled')]}"/>
+                    <button string="Arquivar" name="action_archive" type="object" attrs="{'invisible': [('active', '=', False)]}"/>
                     <field name="status" widget="statusbar"/>
                 </header>
                 <sheet>

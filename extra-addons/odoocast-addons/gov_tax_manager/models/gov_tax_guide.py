@@ -62,7 +62,9 @@ class GovTaxGuide(models.Model):
         ('generated', 'Gerado'),
         ('paid', 'Pago'),
         ('cancelled', 'Cancelado')
-    ], string="Situación", default='draft')
+    ],
+    string="Situación",
+    default='draft')
     
     @api.depends('property_id', 'tax_rate_id')
     @api.onchange('property_id', 'tax_rate_id')

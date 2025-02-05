@@ -79,3 +79,46 @@ class ResPartnerProperty(models.Model):
     zip = fields.Char(
         string='Código Postal'
     )
+    
+    city_department = fields.Integer(
+        string="Departamento/Município"
+    )
+    
+    zone_or_session_cad = fields.Integer(
+        string="Zona ou Seção Cadastral"
+    )
+    
+    quarter_number = fields.Integer(
+        string="Manzana (Quadra)"
+    )
+    
+    installment_lot_number = fields.Integer(
+        string="Parcela/Lote"
+    )
+    
+    sub_installment_number = fields.Integer(
+        string="Subparcelas (se aplicável)"
+    )
+    
+    auto_generate_build_code = fields.Boolean(
+        string="Gerar código de edificio automaticamente",
+        default=True
+    )
+
+    @api.depends('city_department','zone_or_session_cad','quarter_number','installment_lot_number','sub_installment_number')
+    @api.onchange('city_department','zone_or_session_cad','quarter_number','installment_lot_number','sub_installment_number')
+    def compute_name(self):
+        for record in self:
+            name = ""
+            separator = "-"
+            if record.city_department:
+                name += f"{record.city_department:02}"
+            if record.zone_or_session_cad:
+                name += f"{separator}{record.zone_or_session_cad:02}"
+            if record.quarter_number:
+                name += f"{separator}{record.quarter_number:02}"
+            if record.installment_lot_number:
+                name += f"{separator}{record.installment_lot_number:02}"
+            if record.sub_installment_number:
+                name += f"{separator}{record.sub_installment_number:04}"
+            record.name = name

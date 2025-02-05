@@ -35,19 +35,25 @@
                         <group name="classification" string="Classificación">
                             <field name="building_type" />
                             <field name="location_type" />
+                            <field name="auto_generate_build_code" widget="boolean_toggle"/>
                         </group>
                     </group>
-                    <group name="address" string="Dirección">
-                        <group>
+                    <group>
+                        <group name="address" string="Dirección">
                             <field name="street" />
                             <field name="number" />
                             <field name="neighborhood" />
                             <field name="city" />
-                        </group>
-                        <group>
                             <field name="state" />
                             <field name="country" />
                             <field name="zip" />
+                        </group>
+                        <group name="building_codes" string="Códigos Cadastrais">
+                            <field name="city_department" />
+                            <field name="zone_or_session_cad" />
+                            <field name="quarter_number" />
+                            <field name="installment_lot_number" />
+                            <field name="sub_installment_number" />
                         </group>
                     </group>
                 </sheet>
