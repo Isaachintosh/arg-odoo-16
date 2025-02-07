@@ -63,7 +63,6 @@ class GovTaxRate(models.Model):
     status = fields.Selection(
         selection=[
             ('draft', 'Borrador'),
-            ('approved', 'Aprobado'),
             ('active', 'Activo'),
             ('inactive', 'Inactivo'),
             ('canceled', 'Cancelado'),
@@ -85,17 +84,14 @@ class GovTaxRate(models.Model):
         string='Fecha de revocación'
     )
     
-    def action_approve(self):
-        self.status = 'approved'
+    def action_draft(self):
+        self.status = 'draft'
     
     def action_activate(self):
         self.status = 'active'
     
-    def action_cancel(self):
-        self.status = 'canceled'
-    
     def action_inactive(self):
         self.status = 'inactive'
     
-    def action_draft(self):
-        self.status = 'draft'
+    def action_cancel(self):
+        self.status = 'canceled'
